@@ -1,5 +1,6 @@
 import path from "path";
 import gulp from "gulp";
+import newer from "gulp-newer";
 import plumber from "gulp-plumber";
 import imagemin, { mozjpeg, optipng, svgo } from "gulp-imagemin";
 import del from "del";
@@ -15,13 +16,15 @@ const PATHS = {
   src: {
     base: "src",
     watch: function (type) {
-      let path;
+      let path = null;
       if (type === "scss") {
         path = `${this.base}/scss/**/*.scss`;
       } else if (type === "html") {
         path = `${this.base}/**/*.html`;
       } else if (type === "fonts") {
         path = `${this.base}/fonts/**/*.{woff,woff2}`;
+      } else if (type === "images") {
+        path = `${this.base}/images/**/*.{png,svg,jpg}`;
       }
 
       return path;
@@ -43,7 +46,8 @@ gulp.task("scss", () =>
 
 gulp.task("html", () =>
   gulp
-    .src(PATHS.src.watch("html"), { since: gulp.lastRun("html") })
+    .src(PATHS.src.watch("html"))
+    .pipe(newer(PATHS.dist.base))
     .pipe(debug({ title: "HTML" }))
     .pipe(gulp.dest(PATHS.dist.base))
     .pipe(server.stream())
@@ -51,9 +55,30 @@ gulp.task("html", () =>
 
 gulp.task("fonts", () =>
   gulp
-    .src(PATHS.src.watch("fonts"), { since: gulp.lastRun("fonts") })
+    .src(PATHS.src.watch("fonts"))
+    .pipe(newer(`${PATHS.dist.base}/fonts`))
     .pipe(debug({ title: "FONTS" }))
     .pipe(gulp.dest(`${PATHS.dist.base}/fonts`))
+    .pipe(server.stream())
+);
+
+gulp.task("images", () =>
+  gulp
+    .src(PATHS.src.watch("images"))
+    .pipe(newer(`${PATHS.dist.base}/images`))
+    .pipe(debug({ title: "IMAGES" }))
+    .pipe(
+      imagemin([
+        mozjpeg(
+          { quality: 75, progressive: true },
+          optipng({ optimizationLevel: 3 })
+        ),
+        svgo({
+          plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
+        }),
+      ])
+    )
+    .pipe(gulp.dest(`${PATHS.dist.base}/images`))
     .pipe(server.stream())
 );
 
@@ -81,12 +106,15 @@ gulp.task(
     gulp
       .watch(PATHS.src.watch("fonts"), gulp.series("fonts"))
       .on("unlink", unlinkHandler);
+    gulp
+      .watch(PATHS.src.watch("images"), gulp.series("images"))
+      .on("unlink", unlinkHandler);
   })
 );
 
 gulp.task(
   "build",
-  gulp.series("clean", gulp.parallel("scss", "html", "fonts"))
+  gulp.series("clean", gulp.parallel("scss", "html", "fonts", "images"))
 );
 
 function unlinkHandler(filePath) {
@@ -97,6 +125,6 @@ function unlinkHandler(filePath) {
     "./",
     path.resolve(PATHS.dist.base, filePathFromSrc)
   );
-  //   Удаляем
+  //   Удаляем файл из production папки
   return del.sync(destFilePath);
 }
