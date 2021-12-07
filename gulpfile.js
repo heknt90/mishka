@@ -20,6 +20,8 @@ const PATHS = {
         path = `${this.base}/scss/**/*.scss`;
       } else if (type === "html") {
         path = `${this.base}/**/*.html`;
+      } else if (type === "fonts") {
+        path = `${this.base}/fonts/**/*.{woff,woff2}`;
       }
 
       return path;
@@ -42,8 +44,16 @@ gulp.task("scss", () =>
 gulp.task("html", () =>
   gulp
     .src(PATHS.src.watch("html"), { since: gulp.lastRun("html") })
-    .pipe(debug("HTML"))
+    .pipe(debug({ title: "HTML" }))
     .pipe(gulp.dest(PATHS.dist.base))
+    .pipe(server.stream())
+);
+
+gulp.task("fonts", () =>
+  gulp
+    .src(PATHS.src.watch("fonts"), { since: gulp.lastRun("fonts") })
+    .pipe(debug({ title: "FONTS" }))
+    .pipe(gulp.dest(`${PATHS.dist.base}/fonts`))
     .pipe(server.stream())
 );
 
@@ -68,13 +78,25 @@ gulp.task(
     gulp
       .watch(PATHS.src.watch("html"), gulp.series("html"))
       .on("unlink", unlinkHandler);
+    gulp
+      .watch(PATHS.src.watch("fonts"), gulp.series("fonts"))
+      .on("unlink", unlinkHandler);
   })
 );
 
-gulp.task("build", gulp.series("clean", gulp.parallel("scss", "html")));
+gulp.task(
+  "build",
+  gulp.series("clean", gulp.parallel("scss", "html", "fonts"))
+);
 
 function unlinkHandler(filePath) {
+  // отделяем часть пути относительно development папки
   const filePathFromSrc = path.relative(path.resolve(PATHS.src.base), filePath);
-  const destFilePath = path.resolve(PATHS.dist.base, filePathFromSrc);
-  del.sync(destFilePath);
+  //   Получаем относительный путь к файлу внутри production папки
+  const destFilePath = path.relative(
+    "./",
+    path.resolve(PATHS.dist.base, filePathFromSrc)
+  );
+  //   Удаляем
+  return del.sync(destFilePath);
 }
