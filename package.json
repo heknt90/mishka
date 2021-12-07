@@ -2,7 +2,10 @@
   "name": "mishka",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "exports": "./index.js",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "scripts": {
     "build": "gulp build",
     "dev": "npm run build && gulp serve"
@@ -13,8 +16,10 @@
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
+    "gulp-imagemin": "^8.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^5.0.0",
     "sass": "^1.44.0"
-  }
+  },
+  "type": "module"
 }
