@@ -16,6 +16,7 @@
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
+    "gulp-debug": "^4.0.0",
     "gulp-imagemin": "^8.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^5.0.0",
