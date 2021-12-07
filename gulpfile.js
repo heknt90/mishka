@@ -4,10 +4,12 @@ import newer from "gulp-newer";
 import plumber from "gulp-plumber";
 import imagemin, { mozjpeg, optipng, svgo } from "gulp-imagemin";
 import del from "del";
+import concat from "gulp-concat";
+import uglify from "gulp-uglify";
+import debug from "gulp-debug";
 import bsync from "browser-sync";
 import sassHandler from "sass";
 import gulpSass from "gulp-sass";
-import debug from "gulp-debug";
 
 const sass = gulpSass(sassHandler);
 const server = bsync.create();
@@ -25,6 +27,8 @@ const PATHS = {
         path = `${this.base}/fonts/**/*.{woff,woff2}`;
       } else if (type === "images") {
         path = `${this.base}/images/**/*.{png,svg,jpg}`;
+      } else if (type === "scripts") {
+        path = `${this.base}/js/**/*.js`;
       }
 
       return path;
@@ -82,6 +86,15 @@ gulp.task("images", () =>
     .pipe(server.stream())
 );
 
+gulp.task("scripts", () =>
+  gulp
+    .src(PATHS.src.watch("scripts"))
+    .pipe(concat("script.js"))
+    //   .pipe(uglify())
+    .pipe(gulp.dest(`${PATHS.dist.base}/js`))
+    .pipe(server.stream())
+);
+
 gulp.task("clean", () => {
   return del(PATHS.dist.base);
 });
@@ -100,6 +113,7 @@ gulp.task(
     });
 
     gulp.watch(PATHS.src.watch("scss"), gulp.series("scss"));
+    gulp.watch(PATHS.src.watch("scripts"), gulp.series("scripts"));
     gulp
       .watch(PATHS.src.watch("html"), gulp.series("html"))
       .on("unlink", unlinkHandler);
@@ -114,7 +128,10 @@ gulp.task(
 
 gulp.task(
   "build",
-  gulp.series("clean", gulp.parallel("scss", "html", "fonts", "images"))
+  gulp.series(
+    "clean",
+    gulp.parallel("scss", "html", "fonts", "images", "scripts")
+  )
 );
 
 function unlinkHandler(filePath) {
