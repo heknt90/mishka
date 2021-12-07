@@ -43,7 +43,7 @@ gulp.task("scss", () =>
   gulp
     .src(`${PATHS.src.base}/scss/style.scss`)
     .pipe(plumber())
-    .pipe(sass())
+    .pipe(sass().on("error", sass.logError))
     .pipe(gulp.dest(`${PATHS.dist.base}/css`))
     .pipe(server.stream())
 );
