@@ -1,9 +1,10 @@
 :root {
   box-sizing: border-box;
 
-  font-family: OpenSans, Arial, Helvetica, sans-serif;
+  font-family: $main-font-family;
   font-size: 15px;
   line-height: 2;
+  color: $gray-dark-color;
 }
 
 *,
