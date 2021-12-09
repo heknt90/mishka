@@ -1,0 +1,36 @@
+.link {
+  font-size: 1rem;
+  color: $black;
+  text-decoration: none;
+
+  &:hover {
+    color: rgba($black, 0.6);
+  }
+  &:active {
+    color: rgba($black, 0.3);
+  }
+
+  // Big link
+
+  &_big {
+    font-size: 1.133333333rem;
+    line-height: 1.7647058824;
+  }
+
+  //   Подчеркнутая ссылка в Styleguide используется для mail link
+
+  &_highlighted {
+    display: inline-block;
+    border-bottom: 1px solid $main-color;
+
+    &:hover {
+      color: $main-font-color;
+      border-bottom-width: $main-font-color;
+    }
+
+    &:active {
+      color: rgba($main-font-color, 0.3);
+      border-bottom-color: rgba($main-font-color, 0.1);
+    }
+  }
+}
