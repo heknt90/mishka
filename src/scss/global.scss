@@ -1,0 +1,13 @@
+:root {
+  box-sizing: border-box;
+
+  font-family: OpenSans, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 2;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
