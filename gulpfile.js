@@ -77,9 +77,7 @@ gulp.task("images", () =>
           { quality: 75, progressive: true },
           optipng({ optimizationLevel: 3 })
         ),
-        svgo({
-          plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
-        }),
+        svgo(),
       ])
     )
     .pipe(gulp.dest(`${PATHS.dist.base}/images`))
