@@ -1,0 +1,17 @@
+.heading {
+  margin-top: 0;
+
+  font-weight: bold;
+  font-size: 1.666666667rem;
+  line-height: 1.2;
+
+  &_large {
+    font-size: 1.8rem;
+    line-height: 1.1111111111;
+  }
+
+  &_small {
+    font-size: 1.133333333rem;
+    line-height: 1.176470588;
+  }
+}
