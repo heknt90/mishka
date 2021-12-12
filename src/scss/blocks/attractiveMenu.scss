@@ -1,0 +1,103 @@
+/*
+AttractiveMenu
+
+Markup:
+
+<div class="attractive-menu">
+    <a href="#" class="attractive-menu__button">
+      Предметы <br />интерьера
+      <img
+        src="./images/icon-lamp.svg"
+        class="attractive-menu__icon"
+        height="60"
+      />
+    </a>
+    <a href="#" class="attractive-menu__button">
+      Детские <br />игрушки
+      <img
+        src="./images/icon-block.svg"
+        class="attractive-menu__icon"
+        height="60"
+      />
+    </a>
+  </div>
+
+*/
+
+.attractive-menu {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  background: linear-gradient(
+    to bottom,
+    $main-color 50%,
+    $main-color-alternative-2 50%
+  );
+
+  &__button {
+    position: relative;
+    padding: 25px 100px 30px 30px;
+    flex-basis: 100%;
+    transition: transform 0.2s linear;
+
+    background-color: $main-color;
+
+    font-size: 1.2666666667em;
+    font-weight: bold;
+    line-height: 1.263157895;
+    color: $white;
+    text-decoration: none;
+
+    &:nth-child(2n) {
+      background-color: $main-color-alternative-2;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    &:active {
+      color: rgba($white, 0.3);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 57px;
+    top: 50%;
+    height: 60px;
+
+    color: rgba($main-color-dark, 0.5);
+
+    transform: translateX(50%) translateY(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .attractive-menu {
+    padding-bottom: 16px;
+    flex-wrap: nowrap;
+    background: linear-gradient(
+      to right,
+      $main-color 50%,
+      $main-color-alternative-2 50%
+    );
+
+    &__button {
+      flex-basis: 50%;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 24px;
+
+      background-image: url("../images/wave-2.svg");
+      background-position: -20px 3px;
+      background-repeat: repeat no-repeat;
+    }
+  }
+}
