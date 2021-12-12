@@ -7,6 +7,8 @@ import del from "del";
 import concat from "gulp-concat";
 import uglify from "gulp-uglify";
 import debug from "gulp-debug";
+import svgstore from "gulp-svgstore";
+import inject from "gulp-inject";
 import bsync from "browser-sync";
 import sassHandler from "sass";
 import gulpSass from "gulp-sass";
@@ -26,7 +28,13 @@ const PATHS = {
       } else if (type === "fonts") {
         path = `${this.base}/fonts/**/*.{woff,woff2}`;
       } else if (type === "images") {
-        path = `${this.base}/images/**/*.{png,svg,jpg}`;
+        path = [
+          `${this.base}/images/**/*.{png,jpg,svg}`,
+          `!${this.base}/images/sprite/**`,
+        ];
+        console.log("CHECK PATH", path);
+      } else if (type === "sprite") {
+        path = `${this.base}/images/sprite/**/*.svg`;
       } else if (type === "scripts") {
         path = `${this.base}/js/**/*.js`;
       }
@@ -77,12 +85,31 @@ gulp.task("images", () =>
           { quality: 75, progressive: true },
           optipng({ optimizationLevel: 3 })
         ),
-        svgo(),
       ])
     )
     .pipe(gulp.dest(`${PATHS.dist.base}/images`))
     .pipe(server.stream())
 );
+
+gulp.task("svg-sprite", () => {
+  const svgs = gulp
+    .src(PATHS.src.watch("sprite"))
+    .pipe(debug({ title: "SPRITE" }))
+    .pipe(imagemin([svgo()]))
+    .pipe(svgstore({ inlineSvg: true }))
+    .pipe(debug({ title: "SPRITE" }));
+
+  function fileContents(filepath, file) {
+    return file.contents.toString();
+  }
+  return gulp
+    .src(PATHS.src.watch("html"))
+    .pipe(debug({ title: "SPRITE HTML's" }))
+    .pipe(inject(svgs, { transform: fileContents }))
+    .pipe(gulp.dest(`${PATHS.dist.base}`));
+});
+
+gulp.task("sprite-inject", gulp.series("html", "svg-sprite"));
 
 gulp.task("scripts", () =>
   gulp
@@ -113,7 +140,7 @@ gulp.task(
     gulp.watch(PATHS.src.watch("scss"), gulp.series("scss"));
     gulp.watch(PATHS.src.watch("scripts"), gulp.series("scripts"));
     gulp
-      .watch(PATHS.src.watch("html"), gulp.series("html"))
+      .watch(PATHS.src.watch("html"), gulp.series("sprite-inject"))
       .on("unlink", unlinkHandler);
     gulp
       .watch(PATHS.src.watch("fonts"), gulp.series("fonts"))
@@ -121,6 +148,7 @@ gulp.task(
     gulp
       .watch(PATHS.src.watch("images"), gulp.series("images"))
       .on("unlink", unlinkHandler);
+    gulp.watch(PATHS.src.watch("sprite"), gulp.series("sprite-inject"));
   })
 );
 
@@ -128,7 +156,7 @@ gulp.task(
   "build",
   gulp.series(
     "clean",
-    gulp.parallel("scss", "html", "fonts", "images", "scripts")
+    gulp.parallel("scss", "fonts", "images", "scripts", "sprite-inject")
   )
 );
 
