@@ -28,7 +28,10 @@ const PATHS = {
       } else if (type === "fonts") {
         path = `${this.base}/fonts/**/*.{woff,woff2}`;
       } else if (type === "images") {
-        path = `${this.base}/images/**/*.{png,jpg}`;
+        path = [
+          `${this.base}/images/**/*.{png,jpg,svg}`,
+          `!${this.base}/images/sprite/**`,
+        ];
       } else if (type === "sprite") {
         path = `${this.base}/images/sprite/**/*.svg`;
       } else if (type === "scripts") {
