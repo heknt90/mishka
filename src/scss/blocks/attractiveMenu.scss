@@ -4,23 +4,19 @@ AttractiveMenu
 Markup:
 
 <div class="attractive-menu">
-    <a href="#" class="attractive-menu__button">
-      Предметы <br />интерьера
-      <img
-        src="./images/icon-lamp.svg"
-        class="attractive-menu__icon"
-        height="60"
-      />
-    </a>
-    <a href="#" class="attractive-menu__button">
-      Детские <br />игрушки
-      <img
-        src="./images/icon-block.svg"
-        class="attractive-menu__icon"
-        height="60"
-      />
-    </a>
-  </div>
+  <a href="#" class="attractive-menu__button">
+    Предметы <br />интерьера
+    <svg height="60" class="attractive-menu__icon">
+      <use xlink:href="#icon-lamp"></use>
+    </svg>
+  </a>
+  <a href="#" class="attractive-menu__button">
+    Детские <br />игрушки
+    <svg height="60" class="attractive-menu__icon">
+      <use xlink:href="#icon-block"></use>
+    </svg>
+  </a>
+</div>
 
 */
 
@@ -54,10 +50,18 @@ Markup:
 
     &:hover {
       transform: translateY(-5px);
+
+      .attractive-menu__icon {
+        color: rgba($main-color-dark, 0.7);
+      }
     }
 
     &:active {
       color: rgba($white, 0.3);
+
+      .attractive-menu__icon {
+        color: rgba($main-color-dark, 0.3);
+      }
     }
   }
 
