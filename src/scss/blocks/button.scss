@@ -1,0 +1,27 @@
+.button {
+  font-size: 17px;
+  line-height: 20px;
+  text-transform: uppercase;
+  padding: 12px 30px;
+  font-weight: bold;
+  font-family: OpenSans, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+
+  min-width: 292px;
+
+  &_outline {
+    background-color: transparent;
+    border: 2px solid #444444;
+    color: #444444;
+
+    &:hover {
+      background-color: #444444;
+      color: #ffffff;
+    }
+
+    &:active {
+      background-color: #444444;
+      color: rgba(#ffffff, 0.3);
+    }
+  }
+}
