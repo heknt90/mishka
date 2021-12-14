@@ -41,15 +41,6 @@ Markup:
   display: flex;
   flex-direction: column;
   width: 260px;
-  border: 1px solid $gray-light-color;
-
-  &:hover {
-    box-shadow: 0 6px 10px rgba($black, 0.1);
-  }
-
-  &:active {
-    box-shadow: 0 3px 5px rgba($black, 0.1);
-  }
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -97,7 +88,7 @@ Markup:
     flex-direction: column;
     padding: 26px 28px;
     min-height: 177px;
-    border: 1px solid $gray-light-color;
+    // border: 1px solid $gray-light-color;
 
     @media (min-width: 1150px) {
       min-height: 195px;
