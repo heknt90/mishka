@@ -1,27 +1,33 @@
 .button {
-  font-size: 17px;
-  line-height: 20px;
-  text-transform: uppercase;
+  display: inline-block;
+  width: 292px;
+  max-width: 100%;
   padding: 12px 30px;
-  font-weight: bold;
+
   font-family: OpenSans, Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: center;
+
+  text-transform: uppercase;
+  text-decoration: none;
+
   cursor: pointer;
+}
 
-  min-width: 292px;
+.button__outline {
+  background-color: transparent;
+  border: 2px solid #444444;
+  color: #444444;
 
-  &_outline {
-    background-color: transparent;
-    border: 2px solid #444444;
-    color: #444444;
+  :hover {
+    background-color: #444444;
+    color: #ffffff;
+  }
 
-    &:hover {
-      background-color: #444444;
-      color: #ffffff;
-    }
-
-    &:active {
-      background-color: #444444;
-      color: rgba(#ffffff, 0.3);
-    }
+  &:active {
+    background-color: #444444;
+    color: rgba(#ffffff, 0.3);
   }
 }
