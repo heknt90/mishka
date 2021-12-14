@@ -7,6 +7,8 @@
 
 // BEM Blocks
 
+@import "./blocks//backgroundItem.scss";
+@import "./blocks/iconHightlight.scss";
 @import "./blocks//logo.scss";
 @import "./blocks/heading.scss";
 @import "./blocks/link.scss";
@@ -14,3 +16,4 @@
 @import "./blocks/button.scss";
 @import "./blocks/card.scss";
 @import "./blocks/videoPlayer.scss";
+@import "./blocks//media.scss";

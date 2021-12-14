@@ -1,0 +1,153 @@
+/*
+Media
+
+Markup:
+
+<section class="media media_video background-item">
+  <header class="media__header">
+    <svg height="22" width="32" class="media__icon">
+      <use xlink:href="#icon-camera"></use>
+    </svg>
+    <h2 class="heading heading_small media__title">
+      Процесс производства
+    </h2>
+  </header>
+  <div class="media__cover">
+    <div class="video-player">
+      <video
+        poster="./images/video-desktop.jpg"
+        class="video-player__video"
+        loop
+      >
+        <source src="video.mp4" type="video/mp4" />
+      </video>
+      <div class="video-player__play-wrapper">
+        <button
+          type="button"
+          class="video-player__play-button"><div class="sr-only">start or stop playing video</div></button>
+      </div>
+    </div>
+  </div>
+  <div class="media__body">
+    <p class="media__description">
+      По просьбам наших любимых фолловеров мы сняли для вас подробное
+      виедо о том, как появляются наши товары.
+    </p>
+    <a href="#" class="button button_outline media__button">Сделать заказ</a>
+  </div>
+</section>
+
+
+*/
+
+.media {
+  display: flex;
+  flex-direction: column;
+
+  &_video &__cover {
+    height: 150px;
+  }
+}
+
+.media__title {
+  margin: 0;
+  line-height: 24px;
+}
+
+.media__header {
+  position: relative;
+  padding: 25px 35px 20px 90px;
+}
+
+.media__body {
+  padding: 28px 35px 32px;
+}
+
+.media__icon {
+  position: absolute;
+  left: 34px;
+  top: 34px;
+  margin-right: 25px;
+
+  color: $main-color;
+}
+
+.media__description {
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.media__button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .media {
+    &_video &__cover {
+      height: 455px;
+    }
+  }
+
+  .media__cover {
+    order: 0;
+  }
+
+  .media__header {
+    order: 1;
+    padding-top: 38px;
+  }
+
+  .media__body {
+    padding-top: 13px;
+    order: 2;
+  }
+
+  .media__icon {
+    top: 38px;
+  }
+
+  .media__title {
+    font-size: 20px;
+  }
+
+  .media__description {
+    margin-bottom: 34px;
+  }
+}
+
+@media (min-width: 1150px) {
+  .media {
+    position: relative;
+    min-height: 455px;
+    padding-left: 700px;
+    padding-top: 46px;
+  }
+
+  .media__header {
+    padding-top: 49px;
+  }
+
+  .media__body,
+  .media__header {
+    padding-left: 61px;
+    padding-right: 61px;
+  }
+
+  .media__description {
+    margin-bottom: 44px;
+  }
+
+  .media__cover {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 682px;
+    height: 455px;
+  }
+
+  .media__icon {
+    top: 0;
+    left: 55px;
+  }
+}
