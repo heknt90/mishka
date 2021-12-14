@@ -1,0 +1,9 @@
+.icon_highlight {
+  &:hover {
+    color: $main-color;
+  }
+
+  &:active {
+    color: rgba($main-color, 0.3);
+  }
+}
