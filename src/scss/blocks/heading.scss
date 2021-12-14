@@ -2,16 +2,50 @@
   margin-top: 0;
 
   font-weight: bold;
-  font-size: 1.666666667rem;
+  font-size: 1.92307692rem;
   line-height: 1.2;
 
   &_large {
-    font-size: 1.8rem;
+    font-size: 2.0769231rem;
     line-height: 1.1111111111;
   }
 
   &_small {
-    font-size: 1.133333333rem;
+    font-size: 1.30769231rem;
     line-height: 1.176470588;
+  }
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 3.30769231rem;
+    line-height: 1.162790698;
+
+    &_large {
+      font-size: 3.30769231rem;
+      line-height: 1.162790698;
+    }
+
+    &_small {
+      font-size: 1.5384615385rem;
+      line-height: 1.1;
+    }
+  }
+}
+
+@media (min-width: 1150px) {
+  .heading {
+    font-size: 4.07692308rem;
+    line-height: 1.07547169811;
+
+    &_large {
+      font-size: 4.07692308rem;
+      line-height: 1.07547169811;
+    }
+
+    &_small {
+      font-size: 1.5384615385rem;
+      line-height: 1.1;
+    }
   }
 }

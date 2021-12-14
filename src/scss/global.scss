@@ -2,8 +2,8 @@
   box-sizing: border-box;
 
   font-family: $main-font-family;
-  font-size: 15px;
-  line-height: 2;
+  font-size: 13px;
+  line-height: 2.30769231;
   color: $gray-dark-color;
 }
 
@@ -11,4 +11,18 @@
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+@media (min-width: 768px) {
+  :root {
+    font-size: 15px;
+    line-height: 2;
+  }
+}
+
+@media (min-width: 1150px) {
+  :root {
+    font-size: 17px;
+    line-height: 1.7647058824;
+  }
 }
